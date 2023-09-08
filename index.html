@@ -26,18 +26,34 @@
      </div>
    </div>
  <script>
-   function updateclock() {
-      let today = new Date();
-      let time = today.getHours();
-      let mins = today.getMinutes();
-      let secs = today.getSeconds();
-      let p = document.querySelector(".time[data-testid]");
-      
-      let finalTime = time + ":" + mins + ":" + secs;
-      p.setAttribute('data-testid', finalTime);
+   function updateClock() {
+   let today = new Date();
+   let hour = today.getHours();
+   let mins = today.getMinutes();
+   let secs = today.getSeconds();
+   let p = document.querySelector(".time[data-testid]");
+   let formattedHour = hour;
+   let ampm = 'AM';
+
+   if (formattedHour >= 12) {
+      ampm = 'PM';
    }
-   
-   setInterval(updateclock, 1000);
+   if (formattedHour > 12) {
+      formattedHour = formattedHour - 12;
+   }
+   if (formattedHour === 0) {
+      formattedHour = 12;
+   }
+
+   const formattedMinutes = String(mins).padStart(2, '0');
+   const formattedSeconds = String(secs).padStart(2, '0');
+
+   let finalTime = formattedHour + ":" + formattedMinutes + ":" + formattedSeconds + ' ' + ampm;
+   p.setAttribute('data-testid', finalTime);
+}
+
+setInterval(updateClock, 1000);
+
    
    let dateBox = document.querySelector(".date[data-testid]");
    
