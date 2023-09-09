@@ -56,9 +56,3 @@ a{
    display: flex;
    gap: 30px;
 }
-p::after{
-   content: attr(data-testid);
-}
-span::after{
-   content: attr(data-testid);
-}

@@ -1,28 +1,34 @@
-   let dateBox = document.querySelector(".date[data-testid]");
+function updateClock() {
+      let today = new Date();
+      let hour = today.getHours();
+      let mins = today.getMinutes();
+      let secs = today.getSeconds();
+      let p = document.querySelector(".time");
+      let formattedHour = hour;
+      let ampm = 'AM';
    
-   let currentDayOfTheWeek = new Date().toLocaleDateString('en-US', {weekday : 'long'});
+      if (formattedHour >= 12) {
+         ampm = 'PM';
+      }
+      if (formattedHour > 12) {
+         formattedHour = formattedHour - 12;
+      }
+      if (formattedHour === 0) {
+         formattedHour = 12;
+      }
    
-   dateBox.setAttribute('data-testid', currentDayOfTheWeek);
+      const formattedMinutes = String(mins).padStart(2, '0');
+      const formattedSeconds = String(secs).padStart(2, '0');
    
-   function updateTime() {
-      let currentUTCTime = new Date().toUTCString();
-   
-      let timeBox = document.querySelector('.time[data-testid]');
-      
-      timeBox.setAttribute('data-testid', currentUTCTime);timeBox.setAttribute('data-testid', currentUTCTime);
+      let finalTime = formattedHour + ":" + formattedMinutes + ":" + formattedSeconds + ' ' + ampm;
+      p.innerHTML = finalTime;
    }
    
-   setInterval(updateTime, 1000);
-
-   let alter = document.querySelector("img[data-testid]");
+   setInterval(updateClock, 1000);
    
-   let slackDisplayImage = alter.getAttribute('data-testid');
    
-   alter.setAttribute('alt', slackDisplayImage);
+   let dateBox = document.querySelector(".date");
    
-   let link = document.querySelector("a[data-testid]");
+   let currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long' });
    
-   let githubURL = link.getAttribute('data-testid');
-   
-   link.setAttribute('href', githubURL);
-   
+   dateBox.innerHTML = currentDate;
