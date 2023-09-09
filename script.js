@@ -1,33 +1,21 @@
-function updateClock() {
-      let today = new Date();
-      let hour = today.getHours();
-      let mins = today.getMinutes();
-      let secs = today.getSeconds();
-      let p = document.querySelector(".time");
-      let formattedHour = hour;
-      let ampm = 'AM';
+function getCurrentUTCTimeInMilliseconds() {
+  const utcTimeMilliseconds = new Date().getTime();
+  return utcTimeMilliseconds;
+}
+
+function displayCurrentUTCTime() {
+  const utcTimeElement = document.getElementById("utc-time");
+  const currentUTCTime = getCurrentUTCTimeInMilliseconds();
+  document.querySelector('[data-testid="currentUTCTime"]').textContent = `Current UTC Time: ${getCurrentUTCTimeInMilliseconds()}ms`;
+}
+
+// Update the time initially
+displayCurrentUTCTime();
+
+// Update the time every second (1000 milliseconds)
+setInterval(displayCurrentUTCTime, 1000);
    
-      if (formattedHour >= 12) {
-         ampm = 'PM';
-      }
-      if (formattedHour > 12) {
-         formattedHour = formattedHour - 12;
-      }
-      if (formattedHour === 0) {
-         formattedHour = 12;
-      }
-   
-      const formattedMinutes = String(mins).padStart(2, '0');
-      const formattedSeconds = String(secs).padStart(2, '0');
-   
-      let finalTime = formattedHour + ":" + formattedMinutes + ":" + formattedSeconds + ' ' + ampm;
-      p.innerHTML = finalTime;
-   }
-   
-   setInterval(updateClock, 1000);
-   
-   
-   let dateBox = document.querySelector(".date");
+   let dateBox = document.querySelector('[data-testid="currentDayOfTheWeek"]');
    
    let currentDate = new Date().toLocaleDateString('en-US', { weekday: 'long' });
    
